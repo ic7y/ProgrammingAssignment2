@@ -4,9 +4,13 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-        solv<<- solve(x)
-        getsolve<-function(){
-                solv
+        
+        if( det(x) == 0 ){
+                stop("the matrix is irreversible ")
+        }
+        mtrx<<- x
+        getmatrix<-function(){
+                mtrx
         }
         list(getsolve=getsolve)
 
@@ -17,10 +21,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-                solv<-x$getsolve()
-        if(!is.null(solv)){
-                message("getting cache data")
-                return(solv)
+        mtrx<-x$getmatrix()
+        if( det(mtrx) ==0 ){
+                stop("the matrix is irreversible ")
+   
+        }else{
+                message("compute the cache matrix's inverse")
+                invers<-solve( mtrx )
         }
-        solv
+        invers
 }
